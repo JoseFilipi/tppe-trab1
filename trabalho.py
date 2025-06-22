@@ -300,8 +300,11 @@ if __name__ == "__main__":
         elif opcao == '2':
             try:
                 chave = int(input(f"{BOLD}Digite a chave a remover: {RESET}"))
-                b_tree.delete(chave)
-                print(f"{GREEN}Chave {chave} removida com sucesso.{RESET}")
+                if b_tree.search(chave) is None:
+                    print(f"{YELLOW}Chave {chave} não existe na árvore. Nada a remover.{RESET}")
+                else:
+                    b_tree.delete(chave)
+                    print(f"{GREEN}Chave {chave} removida com sucesso.{RESET}")
             except ValueError:
                 print(f"{RED}Entrada inválida. Digite um número inteiro.{RESET}")
             except icontract.errors.ViolationError as e:

@@ -265,28 +265,52 @@ class BTree:
 # Bloco de demonstração
 if __name__ == "__main__":
     print("Iniciando a demonstração da Árvore-B.")
-    b_tree = BTree(t=3)
-    insertion_order = [40, 20, 60, 80, 10, 30, 50, 70, 90, 15, 95, 5, 7, 12, 18, 25, 35, 45, 55, 65, 75, 85, 92, 98, 99]
-    print(f"\nInserindo chaves na ordem: {insertion_order}")
-    for key in insertion_order:
-        print(f"Inserindo {key}...")
-        b_tree.insert(key)
-    print("\nInserção completa.")
-    b_tree.print_tree()
-    print("\n--- Testando Contratos ---")
-    key_to_insert = 40
-    print(f"\nTentando inserir a chave {key_to_insert} (já existe)...")
-    try:
-        b_tree.insert(key_to_insert)
-    except icontract.errors.ViolationError as e:
-        print(f"SUCESSO NO TESTE: A pré-condição falhou como esperado.\n  --> Erro: {e}")
-    key_to_delete = 100
-    print(f"\nTentando remover a chave {key_to_delete} (não existe)...")
-    try:
-        b_tree.delete(key_to_delete)
-    except icontract.errors.ViolationError as e:
-        print(f"SUCESSO NO TESTE: A pré-condição falhou como esperado.\n  --> Erro: {e}")
-    key_to_delete = 65
-    print(f"\nRemovendo a chave {key_to_delete}...")
-    b_tree.delete(key_to_delete)
-    b_tree.print_tree()
+    t = 3
+    b_tree = BTree(t=t)
+    
+    def menu():
+        print("\n--- MENU ÁRVORE-B ---")
+        print("1. Inserir chave")
+        print("2. Remover chave")
+        print("3. Buscar chave")
+        print("4. Exibir árvore")
+        print("5. Sair")
+        return input("Escolha uma opção: ")
+
+    while True:
+        opcao = menu()
+        if opcao == '1':
+            try:
+                chave = int(input("Digite a chave a inserir: "))
+                b_tree.insert(chave)
+                print(f"Chave {chave} inserida com sucesso.")
+            except ValueError:
+                print("Entrada inválida. Digite um número inteiro.")
+            except icontract.errors.ViolationError as e:
+                print(f"Erro de contrato ao inserir: {e}")
+        elif opcao == '2':
+            try:
+                chave = int(input("Digite a chave a remover: "))
+                b_tree.delete(chave)
+                print(f"Chave {chave} removida com sucesso.")
+            except ValueError:
+                print("Entrada inválida. Digite um número inteiro.")
+            except icontract.errors.ViolationError as e:
+                print(f"Erro de contrato ao remover: {e}")
+        elif opcao == '3':
+            try:
+                chave = int(input("Digite a chave a buscar: "))
+                resultado = b_tree.search(chave)
+                if resultado:
+                    print(f"Chave {chave} encontrada na árvore.")
+                else:
+                    print(f"Chave {chave} NÃO encontrada na árvore.")
+            except ValueError:
+                print("Entrada inválida. Digite um número inteiro.")
+        elif opcao == '4':
+            b_tree.print_tree()
+        elif opcao == '5':
+            print("Saindo...")
+            break
+        else:
+            print("Opção inválida. Tente novamente.")

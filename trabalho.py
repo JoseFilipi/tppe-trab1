@@ -291,8 +291,11 @@ if __name__ == "__main__":
         if opcao == '1':
             try:
                 chave = int(input(f"{BOLD}Digite a chave a inserir: {RESET}"))
-                b_tree.insert(chave)
-                print(f"{GREEN}Chave {chave} inserida com sucesso.{RESET}")
+                if b_tree.search(chave) is not None:
+                    print(f"{YELLOW}Chave {chave} já existe na árvore. Não é possível inserir duplicatas.{RESET}")
+                else:
+                    b_tree.insert(chave)
+                    print(f"{GREEN}Chave {chave} inserida com sucesso.{RESET}")
             except ValueError:
                 print(f"{RED}Entrada inválida. Digite um número inteiro.{RESET}")
             except icontract.errors.ViolationError as e:

@@ -264,29 +264,70 @@ class BTree:
 
 # Bloco de demonstração
 if __name__ == "__main__":
-    print("Iniciando a demonstração da Árvore-B.")
-    b_tree = BTree(t=3)
-    insertion_order = [40, 20, 60, 80, 10, 30, 50, 70, 90, 15, 95, 5, 7, 12, 18, 25, 35, 45, 55, 65, 75, 85, 92, 98, 99]
-    print(f"\nInserindo chaves na ordem: {insertion_order}")
-    for key in insertion_order:
-        print(f"Inserindo {key}...")
-        b_tree.insert(key)
-    print("\nInserção completa.")
-    b_tree.print_tree()
-    print("\n--- Testando Contratos ---")
-    key_to_insert = 40
-    print(f"\nTentando inserir a chave {key_to_insert} (já existe)...")
-    try:
-        b_tree.insert(key_to_insert)
-    except icontract.errors.ViolationError as e:
-        print(f"SUCESSO NO TESTE: A pré-condição falhou como esperado.\n  --> Erro: {e}")
-    key_to_delete = 100
-    print(f"\nTentando remover a chave {key_to_delete} (não existe)...")
-    try:
-        b_tree.delete(key_to_delete)
-    except icontract.errors.ViolationError as e:
-        print(f"SUCESSO NO TESTE: A pré-condição falhou como esperado.\n  --> Erro: {e}")
-    key_to_delete = 65
-    print(f"\nRemovendo a chave {key_to_delete}...")
-    b_tree.delete(key_to_delete)
-    b_tree.print_tree()
+    # Códigos ANSI para cores
+    RESET = "\033[0m"
+    BOLD = "\033[1m"
+    RED = "\033[91m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    BLUE = "\033[94m"
+    CYAN = "\033[96m"
+
+    print(f"{BOLD}{CYAN}Iniciando a demonstração da Árvore-B.{RESET}")
+    t = 3
+    b_tree = BTree(t=t)
+    
+    def menu():
+        print(f"\n{BOLD}{BLUE}--- MENU ÁRVORE-B ---{RESET}")
+        print(f"{YELLOW}1. Inserir chave{RESET}")
+        print(f"{YELLOW}2. Remover chave{RESET}")
+        print(f"{YELLOW}3. Buscar chave{RESET}")
+        print(f"{YELLOW}4. Exibir árvore{RESET}")
+        print(f"{YELLOW}5. Sair{RESET}\n")
+        return input(f"{BOLD}Escolha uma opção: {RESET}")
+
+    while True:
+        opcao = menu()
+        if opcao == '1':
+            try:
+                chave = int(input(f"{BOLD}Digite a chave a inserir: {RESET}"))
+                if b_tree.search(chave) is not None:
+                    print(f"{YELLOW}Chave {chave} já existe na árvore. Não é possível inserir duplicatas.{RESET}")
+                else:
+                    b_tree.insert(chave)
+                    print(f"{GREEN}Chave {chave} inserida com sucesso.{RESET}")
+            except ValueError:
+                print(f"{RED}Entrada inválida. Digite um número inteiro.{RESET}")
+            except icontract.errors.ViolationError as e:
+                print(f"{RED}Erro de contrato ao inserir: {e}{RESET}")
+        elif opcao == '2':
+            try:
+                chave = int(input(f"{BOLD}Digite a chave a remover: {RESET}"))
+                if b_tree.search(chave) is None:
+                    print(f"{YELLOW}Chave {chave} não existe na árvore. Nada a remover.{RESET}")
+                else:
+                    b_tree.delete(chave)
+                    print(f"{GREEN}Chave {chave} removida com sucesso.{RESET}")
+            except ValueError:
+                print(f"{RED}Entrada inválida. Digite um número inteiro.{RESET}")
+            except icontract.errors.ViolationError as e:
+                print(f"{RED}Erro de contrato ao remover: {e}{RESET}")
+        elif opcao == '3':
+            try:
+                chave = int(input(f"{BOLD}Digite a chave a buscar: {RESET}"))
+                resultado = b_tree.search(chave)
+                if resultado:
+                    print(f"{GREEN}Chave {chave} encontrada na árvore.{RESET}")
+                else:
+                    print(f"{YELLOW}Chave {chave} NÃO encontrada na árvore.{RESET}")
+            except ValueError:
+                print(f"{RED}Entrada inválida. Digite um número inteiro.{RESET}")
+        elif opcao == '4':
+            print(f"{CYAN}", end="")
+            b_tree.print_tree()
+            print(f"{RESET}", end="")
+        elif opcao == '5':
+            print(f"{BOLD}{BLUE}Saindo...{RESET}")
+            break
+        else:
+            print(f"{RED}Opção inválida. Tente novamente.{RESET}")

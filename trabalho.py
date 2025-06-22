@@ -264,53 +264,64 @@ class BTree:
 
 # Bloco de demonstração
 if __name__ == "__main__":
-    print("Iniciando a demonstração da Árvore-B.")
+    # Códigos ANSI para cores
+    RESET = "\033[0m"
+    BOLD = "\033[1m"
+    RED = "\033[91m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    BLUE = "\033[94m"
+    CYAN = "\033[96m"
+
+    print(f"{BOLD}{CYAN}Iniciando a demonstração da Árvore-B.{RESET}")
     t = 3
     b_tree = BTree(t=t)
     
     def menu():
-        print("\n--- MENU ÁRVORE-B ---")
-        print("1. Inserir chave")
-        print("2. Remover chave")
-        print("3. Buscar chave")
-        print("4. Exibir árvore")
-        print("5. Sair")
-        return input("Escolha uma opção: ")
+        print(f"\n{BOLD}{BLUE}--- MENU ÁRVORE-B ---{RESET}")
+        print(f"{YELLOW}1. Inserir chave{RESET}")
+        print(f"{YELLOW}2. Remover chave{RESET}")
+        print(f"{YELLOW}3. Buscar chave{RESET}")
+        print(f"{YELLOW}4. Exibir árvore{RESET}")
+        print(f"{YELLOW}5. Sair{RESET}\n")
+        return input(f"{BOLD}Escolha uma opção: {RESET}")
 
     while True:
         opcao = menu()
         if opcao == '1':
             try:
-                chave = int(input("Digite a chave a inserir: "))
+                chave = int(input(f"{BOLD}Digite a chave a inserir: {RESET}"))
                 b_tree.insert(chave)
-                print(f"Chave {chave} inserida com sucesso.")
+                print(f"{GREEN}Chave {chave} inserida com sucesso.{RESET}")
             except ValueError:
-                print("Entrada inválida. Digite um número inteiro.")
+                print(f"{RED}Entrada inválida. Digite um número inteiro.{RESET}")
             except icontract.errors.ViolationError as e:
-                print(f"Erro de contrato ao inserir: {e}")
+                print(f"{RED}Erro de contrato ao inserir: {e}{RESET}")
         elif opcao == '2':
             try:
-                chave = int(input("Digite a chave a remover: "))
+                chave = int(input(f"{BOLD}Digite a chave a remover: {RESET}"))
                 b_tree.delete(chave)
-                print(f"Chave {chave} removida com sucesso.")
+                print(f"{GREEN}Chave {chave} removida com sucesso.{RESET}")
             except ValueError:
-                print("Entrada inválida. Digite um número inteiro.")
+                print(f"{RED}Entrada inválida. Digite um número inteiro.{RESET}")
             except icontract.errors.ViolationError as e:
-                print(f"Erro de contrato ao remover: {e}")
+                print(f"{RED}Erro de contrato ao remover: {e}{RESET}")
         elif opcao == '3':
             try:
-                chave = int(input("Digite a chave a buscar: "))
+                chave = int(input(f"{BOLD}Digite a chave a buscar: {RESET}"))
                 resultado = b_tree.search(chave)
                 if resultado:
-                    print(f"Chave {chave} encontrada na árvore.")
+                    print(f"{GREEN}Chave {chave} encontrada na árvore.{RESET}")
                 else:
-                    print(f"Chave {chave} NÃO encontrada na árvore.")
+                    print(f"{YELLOW}Chave {chave} NÃO encontrada na árvore.{RESET}")
             except ValueError:
-                print("Entrada inválida. Digite um número inteiro.")
+                print(f"{RED}Entrada inválida. Digite um número inteiro.{RESET}")
         elif opcao == '4':
+            print(f"{CYAN}", end="")
             b_tree.print_tree()
+            print(f"{RESET}", end="")
         elif opcao == '5':
-            print("Saindo...")
+            print(f"{BOLD}{BLUE}Saindo...{RESET}")
             break
         else:
-            print("Opção inválida. Tente novamente.")
+            print(f"{RED}Opção inválida. Tente novamente.{RESET}")

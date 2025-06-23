@@ -198,20 +198,32 @@ class BTree:
         
     def print_tree(self):
         print(f"--- Estrutura da Árvore (t={self.t}) ---")
+        print(f"Altura: {self.get_height()} | Total de chaves: {len(self._get_all_keys(self.root))}")
+        
         if not self.root or not self.root.keys:
             print("Árvore vazia.")
-            print("---------------------------------")
+            print("-" * 25)
             return
-        self._print_recursive(self.root, "", True, is_root=True)
-        print("---------------------------------")
+            
+        print("Legenda: [chaves] (F=folha, I=interno)")
+        self._print_recursive(self.root, "", True, is_root=True, level=0)
+        print("-" * 25)
+
+    def _print_recursive(self, node: BTreeNode, prefix: str, is_last: bool, is_root: bool = False, level: int = 0):
+        node_type = "F" if node.leaf else "I"
+        node_info = f"{node.keys} ({node_type})"
         
-    def _print_recursive(self, node: BTreeNode, prefix: str, is_last: bool, is_root: bool = False):
+        # Formatação com nível
         if is_root:
-            print(str(node.keys))
+            print(f"Nível {level}: {node_info}")
         else:
-            print(prefix + ("└── " if is_last else "├── ") + str(node.keys))
+            branch_symbol = "└── " if is_last else "├── "
+            print(f"{prefix}{branch_symbol}Nível {level}: {node_info}")
+        
+        # Imprimir filhos
         if not node.leaf:
             child_prefix = prefix + ("    " if is_last else "│   ")
-            num_children = len(node.children)
+            children_count = len(node.children)
             for i, child in enumerate(node.children):
-                self._print_recursive(child, child_prefix, i == num_children - 1)
+                is_last_child = (i == children_count - 1)
+                self._print_recursive(child, child_prefix, is_last_child, level=level+1)

@@ -17,13 +17,15 @@ Para aplicar o DbC, foi utilizada a biblioteca `icontract`, que permite definir 
 
 ## 2. Estrutura do Código
 
-O código está organizado em duas classes principais e um bloco de demonstração:
+O código está organizado em 4 arquivos com classes principais e uma suíte de testes:
 
 - **`BTreeNode`**: Uma classe simples que representa um nó da Árvore-B. Cada nó contém uma lista de chaves (`keys`), uma lista de filhos (`children`) e um booleano (`leaf`) que indica se é um nó folha.
 
 - **`BTree`**: A classe principal que encapsula toda a lógica da Árvore-B. Ela gerencia o nó raiz (`root`), a ordem da árvore (`t`) e implementa todos os métodos necessários para as operações.
 
-- **Bloco de Demonstração (`if __name__ == "__main__"`)**: Uma interface de linha de comando (CLI) interativa que permite ao usuário testar as funcionalidades da árvore, como inserir, remover, buscar chaves e visualizar a estrutura atual da árvore.
+- **Main (`if __name__ == "__main__"`)**: Uma interface de linha de comando (CLI) interativa que permite ao usuário testar as funcionalidades da árvore, como inserir, remover, buscar chaves e visualizar a estrutura atual da árvore.
+
+- **Testes**: Suíte de testes dos algoritmos implementados.
 
 ## 3. Conceitos Aplicados
 
@@ -68,16 +70,17 @@ Para executar e testar a implementação, siga os passos abaixo:
 
 1.  **Pré-requisitos**: Certifique-se de ter o Python 3 instalado em seu sistema.
 
-2.  **Instalar Dependências**: O projeto utiliza a biblioteca `icontract`. Instale-a usando o pip:
+2.  **Instalar Dependências**: O projeto utiliza a biblioteca `icontract` e `pytest` para rodar a suíte de testes. Instale-a usando o pip:
     ```bash
     pip install icontract
+    pip install pytest
     ```
 
-3.  **Salvar o Código**: Salve o código-fonte fornecido em um arquivo Python, por exemplo, `trabalho_b_tree.py`.
-
-4.  **Executar o Script**: Abra um terminal ou prompt de comando, navegue até o diretório onde você salvou o arquivo e execute o seguinte comando:
+3.  **Executar o Script**: Abra um terminal ou prompt de comando, navegue até o diretório onde você salvou o arquivo e execute o seguinte comando:
     ```bash
-    python trabalho_b_tree.py
+    python main.py
     ```
 
-5.  **Interagir com o Menu**: O menu interativo será exibido no terminal. Escolha as opções digitando o número correspondente e pressionando Enter. O programa irá validar as entradas e as regras da Árvore-B, exibindo mensagens de sucesso, erro ou violação de contrato.
+4.  **Interagir com o Menu**: O menu interativo será exibido no terminal. Escolha as opções digitando o número correspondente e pressionando Enter. O programa irá validar as entradas e as regras da Árvore-B, exibindo mensagens de sucesso, erro ou violação de contrato.
+
+6. **Executar testes unitários**: Para rodar a suíte de testes basta rodar o comando `pytest` na raiz do projeto.

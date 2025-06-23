@@ -6,7 +6,8 @@
 | ------------------------- |:-------------:|
 | José Filipi Brito Souza  | 202063346    |
 | Renan Rodrigues Lacerda  | 190048191    |
-| Guilherme Basílio do Espírito Santo | 160007615   |
+| Guilherme Basílio do Espírito Santo | 160007615 |
+| Henrique Torres Landin |202016524|
 
 ## 1. Visão Geral do Projeto
 
